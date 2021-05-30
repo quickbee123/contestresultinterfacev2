@@ -11,14 +11,19 @@ const cron = require("node-cron");
 
 
 var corsOptions = {
-    origin: ["http://localhost:3000"]
+    origin: "http://localhost:5000"
   };
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
+if (process.env.NODE_ENV === 'production') {
 
+  app.use(express.static('client/build'));
+  
+
+}
 
 cron.schedule("*/5 * * * *",updateDb);
 
@@ -27,14 +32,7 @@ app.get('/api/contests',getContest);
 app.get('/api/subgov',getSubgov);
 app.post('/export',exportToExcel);
 
-if (process.env.NODE_ENV === 'production') {
 
-  app.use(express.static('client/build'));
-  app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-  });
-
-}
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT,()=>{
