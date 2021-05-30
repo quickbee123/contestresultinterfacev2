@@ -1,0 +1,75 @@
+html,body{
+  height: 100%;
+}
+
+.container,#root{
+  height: 100%;
+}
+
+.container{
+  padding : 20px 0 20px 0;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: rgb(241, 241, 241);
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.contest-page{
+  background-color: white;
+  min-height: 100%;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+}
+
+.table td,.table th {
+  text-align: center;   
+}
+
+[data-title] {
+	font-size: 18px;
+	position: relative;
+	cursor: pointer;
+}
+
+[data-title]:hover::before {
+	content: attr(data-title);
+	position: absolute;
+	bottom: -10px;
+	padding: 10px;
+	background: #000;
+	color: rgb(250, 250, 250);
+	font-size: 14px;
+	white-space: nowrap;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
+}
+
+.upArrow,.downArrow{
+  cursor: pointer;
+}
+
+.upArrow svg{
+  margin-top: 8px;
+}
+
+.downArrow svg{
+  margin-top: 1px;
+}

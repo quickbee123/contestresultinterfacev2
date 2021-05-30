@@ -1,0 +1,84 @@
+.contest-item {
+    align-items: center;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .contest-item:hover {
+    background: rgb(247, 247, 247);
+  }
+
+  .contest-title{
+    font-weight: 450;
+    font-size: 20px;
+    color: #080808;
+    width: 100%;
+  }
+
+  .contest-details{
+    display: flex;
+    font-size: 15px;
+    width: 100%;
+    color: rgba(17, 16, 16, 0.534);
+
+  }
+
+  .contest-status{
+    display: flex;
+    align-items: center;
+    left: 0;
+  }
+
+  .contest-date{
+    display: flex;
+    margin-right: 0;
+    margin-left: auto;
+  }
+
+  .status-icon{
+
+    width: 10px;
+    height: 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+  }
+
+  .upcoming .status-icon{
+    background-color: rgb(255, 255, 193);
+  }
+  .inprogress .status-icon{
+    background-color: rgb(31, 219, 31);
+  }
+  .voting .status-icon{
+    background-color: rgb(59, 209, 255);
+  }
+  .ended .status-icon{
+    background-color: rgb(244, 101, 101);
+  }
+
+  .upcoming .status-text:after{
+    content: "Upcoming Contest";
+  }
+  .inprogress .status-text:after{
+    content: "Contest in Progress";
+  }
+  .voting .status-text:after{
+    content: "Voting in Progress";
+  }
+  .ended .status-text:after{
+    content: "Contest Ended";
+  }
+
+  .upcoming .contest-date-text:after{
+    content: "Starts on : ";
+  }
+  .inprogress .contest-date-text:after{
+    content: "Ends on : ";
+  }
+  .voting .contest-date-text:after{
+    content: "Ends on : ";
+  }
+  .ended .contest-date-text:after{
+    content: "Ended on : ";
+  }

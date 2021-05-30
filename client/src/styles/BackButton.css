@@ -1,0 +1,28 @@
+.bk-btn {
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    background-color: black;
+    border-radius: 50%;
+}
+.bk-btn:hover{
+    background-color: rgb(107, 107, 107);
+}
+.bk-btn .bk-btn-triangle {
+    position: relative;
+    top: 8px;
+    left: 8px;
+    width: 0;
+    height: 0;
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    border-right: 13px solid white;
+}
+.bk-btn .bk-btn-bar {
+    position: relative;
+    background-color: white;
+    height: 7.8px;
+    width: 13px;
+    top: -8px;
+    left: 19.88px;
+}
