@@ -53,7 +53,7 @@ render(){
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleModal}>Close</Button>
-            <Link to={{pathname: `/contest?address=${this.state.address}`}}>
+            <Link to={`/contest?address=${this.state.address}`}>
               <Button className="px-3">Load</Button>
             </Link>
           </Modal.Footer>
