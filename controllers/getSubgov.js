@@ -2,11 +2,17 @@ const pool = require('./pool');
 
 const getContest = (req,res)=>{
 
-            var sql = "SELECT * FROM subgovernances";
+            var sql = `SELECT * FROM subgovernances`;
 
             pool.connect((err, client, release) => {
 
-                client.query(sql,(err,result)=>{
+                if(err){
+                    console.log(err);
+                }
+
+                else{
+
+                    client.query(sql,(err,result)=>{
 
                     if(err){
                         res.status(502).json({body: err});
@@ -14,6 +20,10 @@ const getContest = (req,res)=>{
                     release();
                     res.json(result.rows);
                 });
+
+                }
+
+                
 
             });
     

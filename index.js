@@ -12,7 +12,7 @@ const path = require('path');
 
 
 var corsOptions = {
-    origin: "http://tonresults.herokuapp.com/"
+    origin: "http://localhost:3000/"
   };
 
 const app = express();
@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
 
-cron.schedule("*/30 * * * *",updateDb);
+cron.schedule("*/12 * * * *",updateDb);
 
 
 app.get('/api/contests',getContest);
