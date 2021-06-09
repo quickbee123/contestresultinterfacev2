@@ -51,7 +51,7 @@ const updateDb = async function() {
     
         var getDetails = setInterval(async function(){
 
-            console.log(i);
+        
             var index= i;         
             i++;
             if(index === result1.length) {
@@ -97,7 +97,7 @@ const updateDb = async function() {
     
         function callback(){
 
-            console.log("finish")
+      
 
                 pool.connect((err, client, release) => {
 
@@ -110,7 +110,7 @@ const updateDb = async function() {
                         for (let i = 0; i < result1.length; i++){
 
                             if(!result1[i].error){
-                                console.log(i);
+                                
                                 let sql = `INSERT INTO contests ("Address","Title","ContestStart","ContestDeadline","VotingDeadline") VALUES ('${result1[i].id}','${result1[i].contestInfo.title}','${result1[i].contestProgress.contestStart}','${result1[i].contestProgress.contestDeadline}','${result1[i].contestProgress.votingDeadline}') ON CONFLICT("Address") DO UPDATE SET "ContestDeadline"='${result1[i].contestProgress.contestDeadline}',"VotingDeadline"='${result1[i].contestProgress.votingDeadline}'`;
                                 client.query(sql, function (err, res) {
                                 if (err) console.log(err);                        
