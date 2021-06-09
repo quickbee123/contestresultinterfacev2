@@ -12,9 +12,8 @@ function App() {
     <Container>
     <Router history={history}>
       <Switch>
-      <Route path='/contest?address=:address' component={ContestPage} />
-      <Route exact path='/' component={MainPage} />
-        
+      <Route path='/contest' component={ContestPage} />
+      <Route exact path='/' component={MainPage} />   
       </Switch>
     </Router>  
     </Container>

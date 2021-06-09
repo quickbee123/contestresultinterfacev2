@@ -2,34 +2,22 @@ const pool = require('./pool');
 
 const getContest = (req,res)=>{
 
-    pool.getConnection(function(err, db) {
+        pool.connect((err, client, release) => {
 
+            var sql = `SELECT * FROM contests WHERE "SubgovernanceId" != -1`;
 
-
-        if(err){
-            res.status(503).json({body: err});
-        }
-        else{
-
-            var sql = "SELECT * FROM contests";
-
-            db.query(sql,(err,result)=>{
+            client.query(sql,(err,result)=>{
 
                 if(err){
                     console.log(err);
                     res.status(502).json({body: err});
                 }
-                res.json(result);
+                release();
+                res.json(result.rows);
             })
+        });
 
-            db.release();
-
-        }
         
-
-    });
-
-    
 
 }
 module.exports = getContest;

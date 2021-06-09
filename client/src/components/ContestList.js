@@ -28,7 +28,7 @@ render(){
     return(
         
         <div key ={contest.Id}>
-            <Link to={{pathname: `/contest?address=${contest.Address}`}} className="text-decoration-none">
+            <Link to={`/contest?address=${contest.Address}`} className="text-decoration-none">
               <ContestListItem contest={contest}/>
             </Link>
         </div>

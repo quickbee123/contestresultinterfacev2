@@ -6,31 +6,31 @@ const  getSubgov = require('./controllers/getSubgov');
 const  exportToExcel = require('./controllers/exportToExcel');
 const updateDb = require('./controllers/updateDb');
 const cron = require("node-cron");
+const path = require('path');
 
 
 
 
 var corsOptions = {
-    origin: "http://localhost:5000"
+    origin: "http://localhost:3000"
   };
 
 const app = express();
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
-if (process.env.NODE_ENV === 'production') {
 
-  app.use(express.static('client/build'));
-  
-
-}
-
-cron.schedule("*/5 * * * *",updateDb);
+cron.schedule("*/30 * * * *",updateDb);
 
 
 app.get('/api/contests',getContest);
 app.get('/api/subgov',getSubgov);
 app.post('/export',exportToExcel);
+
+app.use(express.static('client/build'));
+app.get('*', function(req, res) {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 
 
 

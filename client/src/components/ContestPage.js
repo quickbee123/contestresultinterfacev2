@@ -15,7 +15,7 @@ class ContestPage extends Component{
     constructor(props){
     super(props);
     this.state={
-        address: this.props.match.params.address,
+        address: '',
         title: '',
         submissions:[],
         jurors:[],
@@ -34,9 +34,15 @@ class ContestPage extends Component{
     }
 
     componentDidMount(){
-     
-     this.getContestDetails();
-     
+
+        
+        var address = new URLSearchParams(this.props.location.search).get('address');
+
+        this.setState({address:address},()=>{
+            this.getContestDetails();
+        })
+        
+        
     }
 
     async getContestDetails(){

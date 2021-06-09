@@ -42,15 +42,17 @@ const updateDb = async function() {
                 unix = result0[49].last_paid;
             }
         }
+
+        
         
       
         var i = 0
     
     
         var getDetails = setInterval(async function(){
-            
-            var index= i;
-           
+
+            console.log(i);
+            var index= i;         
             i++;
             if(index === result1.length) {
                 clearInterval(getDetails);
@@ -64,58 +66,63 @@ const updateDb = async function() {
                 client,
                 signer: signerNone(), 
             });
-        
-            var result2 = (await acc.runLocal("getContestInfo",{})).decoded.output;
-            result1[index].contestInfo=result2;
-            var result3 = (await acc.runLocal("getContestProgress",{})).decoded.output;
-            var result4 = (await acc.runLocal("contestStartCountdown",{})).decoded.output;  
-            result1[index].contestProgress={
-                contestStart: parseInt(result4.secondsLeft)+parseInt(unix_now),
-                contestDeadline: result3.contestDeadline,
-                votingDeadline: result3.votingDeadline
-            };
+
+            
+
+            try{
+
+                var result2 = (await acc.runLocal("getContestInfo",{})).decoded.output;
+                result1[index].contestInfo=result2;
+                var result3 = (await acc.runLocal("getContestProgress",{})).decoded.output;
+                var result4 = (await acc.runLocal("contestStartCountdown",{})).decoded.output;  
+                result1[index].contestProgress={
+                    contestStart: parseInt(result4.secondsLeft)+parseInt(unix_now),
+                    contestDeadline: result3.contestDeadline,
+                    votingDeadline: result3.votingDeadline
+                };
+                result1[index].error = false;
+
+            }catch(err){
+                result1[index].error = true;
+                console.log(err);
+            }
+
+            
+
             }
         
     
             
-        }, 1000);
+        }, 3000);
     
         function callback(){
-    
-            pool.getConnection(function(err,db) {
 
-                if(!err){
-                    
-                     
-                    for (let i = 0; i < result1.length; i++){
-                        console.log(i);
-                        let title=new TextDecoder().decode(hex2a(result1[i].contestInfo.title));
-                        let sql = `INSERT INTO Contests (Address,Title,ContestStart,ContestDeadline,VotingDeadline) VALUES ("${result1[i].id}","${title}","${result1[i].contestProgress.contestStart}","${result1[i].contestProgress.contestDeadline}","${result1[i].contestProgress.votingDeadline}") ON DUPLICATE KEY UPDATE ContestDeadline="${result1[i].contestProgress.contestDeadline}",VotingDeadline="${result1[i].contestProgress.votingDeadline}"`;
-                        db.query(sql, function (err, res) {
-                        if (err) console.log(err);
-                        
-                        
-                        
-                        });
-                
+            console.log("finish")
+
+                pool.connect((err, client, release) => {
+
+                    if(err){
+                        console.log(err);
                     }
+                     
+                    else{
 
-                    db.release();
+                        for (let i = 0; i < result1.length; i++){
 
+                            if(!result1[i].error){
+                                console.log(i);
+                                let sql = `INSERT INTO contests ("Address","Title","ContestStart","ContestDeadline","VotingDeadline") VALUES ('${result1[i].id}','${result1[i].contestInfo.title}','${result1[i].contestProgress.contestStart}','${result1[i].contestProgress.contestDeadline}','${result1[i].contestProgress.votingDeadline}') ON CONFLICT("Address") DO UPDATE SET "ContestDeadline"='${result1[i].contestProgress.contestDeadline}',"VotingDeadline"='${result1[i].contestProgress.votingDeadline}'`;
+                                client.query(sql, function (err, res) {
+                                if (err) console.log(err);                        
+                                });
+                            }
+                    
+                        }
 
-
-
-                }
-        
-        
-                
-        
-            });
-        
-            
-        
-       
-            
+                    }
+                    
+                release();
+                });
     
         }
         

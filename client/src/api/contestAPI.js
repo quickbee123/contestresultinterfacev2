@@ -6,7 +6,6 @@ const contestAPI= {
     async getAllContests(){
 
         const response = await axios.get('/api/contests');
-
         return (await this.getContestStatus(response.data));
     },
     async getAllSubgov(){
