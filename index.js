@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
 
-cron.schedule("*/12 * * * *",updateDb);
+cron.schedule("*/30 * * * *",updateDb);
 
 
 app.get('/api/contests',getContest);
