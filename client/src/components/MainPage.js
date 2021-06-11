@@ -95,13 +95,14 @@ class MainPage extends Component{
             
 
         })
+        
 
         var firstMatch = contests.filter((contest)=>{
-            return contest.Title.toLowerCase().search(this.state.searchName) ===0;
+            return contest.Title.toLowerCase().indexOf(this.state.searchName) ===0;
         });
 
         var anyMatch = contests.filter((contest)=>{
-            return contest.Title.toLowerCase().search(this.state.searchName) > 0;
+            return contest.Title.toLowerCase().indexOf(this.state.searchName) > 0;
         });
 
         this.setState({filtered_contests:[...firstMatch,...anyMatch]});

@@ -12,7 +12,7 @@ const path = require('path');
 
 
 var corsOptions = {
-    origin: "http://tonresults.herokuapp.com/"
+    origin: "http://localhost:3000/"
   };
 
 const app = express();

@@ -5,8 +5,11 @@ import helpers from '../helpers/index'
 const contestAPI= {
     async getAllContests(){
 
-        const response = await axios.get('/api/contests');
-        return (await this.getContestStatus(response.data));
+        var response = (await axios.get('/api/contests')).data;
+        response = await this.getContestStatus(response);
+        response = await this.getContestTitles(response);
+        console.log(response);
+        return response;
     },
     async getAllSubgov(){
 
@@ -63,6 +66,8 @@ const contestAPI= {
       var unix_now = Math.round(Date.now()/1000);
       contests.forEach(contest => {
 
+          
+
           if(contest.ContestStart-unix_now>0){
               contest.status="upcoming";
 
@@ -83,6 +88,15 @@ const contestAPI= {
       });
       return contests;
 
+    },
+    async getContestTitles(contests){
+      
+      for(var contest of contests){
+        contest.Title = await helpers.hex2a(contest.Title);
+      }
+
+      console.log(contests);
+      return contests;
     }
 }
 
