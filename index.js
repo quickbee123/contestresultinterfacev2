@@ -1,23 +1,19 @@
 const express = require('./node_modules/express');
 const bodyParser = require('./node_modules/body-parser');
-const cors = require("cors");
+
 const  getContest = require('./controllers/getContest');
 const  getSubgov = require('./controllers/getSubgov');
 const  exportToExcel = require('./controllers/exportToExcel');
 const updateDb = require('./controllers/updateDb');
+
 const cron = require("node-cron");
 const path = require('path');
 
 
 
-
-var corsOptions = {
-    origin: "http://tonresults.herokuapp.com/"
-  };
-
 const app = express();
 app.use(bodyParser.json());
-app.use(cors(corsOptions));
+
 
 
 cron.schedule("*/30 * * * *",updateDb);
